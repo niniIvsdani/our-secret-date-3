@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Secret ♡</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #050505;
+      color: white;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 330px;
+      padding: 25px 20px;
+      border: 1px solid #252025;
+      box-shadow: 0 0 30px #ff278710;
+    }
+
+    .heart {
+      color: #ff2787;
+      font-size: 45px;
+      text-shadow: 0 0 15px #ff2787;
+      margin-bottom: 15px;
+    }
+
+    .small {
+      color: #aaa;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: 23px;
+      line-height: 1.4;
+      letter-spacing: 2px;
+    }
+
+    .date {
+      font-size: 22px;
+      letter-spacing: 5px;
+      margin: 20px 0;
+      color: #ff9bc8;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin: 20px 0;
+    }
+
+    .keypad button {
+      background: #090909;
+      border: 1px solid #454045;
+      color: white;
+      padding: 13px 5px;
+      font-family: monospace;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .keypad button:hover {
+      border-color: #ff2787;
+      color: #ff9bc8;
+    }
+
+    .enter {
+      border: 1px solid #ff2787;
+      color: white;
+      background: #170914;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+
+    .enter:hover {
+      background: #42112e;
+    }
+
+    #error {
+      color: #ff7bac;
+      font-size: 12px;
+      min-height: 15px;
+    }
+
+    #surprise {
+      display: none;
+      animation: appear 1s ease;
+    }
+
+    .letter {
+      color: #e9dce4;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      line-height: 1.9;
+      padding: 10px 0;
+    }
+
+    .signature {
+      color: #ff9bc8;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card">
+
+    <section id="login">
+      <div class="heart">♥</div>
+
+      <p class="small">SECURITY SYSTEM // NIGHT SHIFT</p>
+
+      <h1>INGRESA LA<br>FECHA SECRETA</h1>
+
+      <div class="date" id="display">______</div>
+
+      <div class="keypad">
+        <button onclick="addNumber('0')">0</button>
+        <button onclick="addNumber('1')">1</button>
+        <button onclick="addNumber('2')">2</button>
+        <button onclick="addNumber('3')">3</button>
+        <button onclick="addNumber('4')">4</button>
+        <button onclick="addNumber('5')">5</button>
+        <button onclick="addNumber('6')">6</button>
+        <button onclick="addNumber('7')">7</button>
+        <button onclick="addNumber('8')">8</button>
+        <button onclick="addNumber('9')">9</button>
+        <button onclick="clearDate()">C</button>
+        <button onclick="deleteNumber()">←</button>
+      </div>
+
+      <button class="enter" onclick="checkDate()">
+        DESBLOQUEAR ♡
+      </button>
+
+      <p id="error"></p>
+      <p class="small">ACCESS IS RESERVED FOR YOU</p>
+    </section>
+
+    <section id="surprise">
+      <div class="heart">♥</div>
+
+      <p class="small">ACCESS GRANTED</p>
+
+      <h1>PARA TI ♡</h1>
+
+      <div class="letter">
+        No sé si existen las casualidades,
+        pero qué bonito que la vida
+        nos haya permitido encontrarnos.
+
+        <br><br>
+
+        Entre tantas personas,
+        tú te convertiste en alguien especial
+        para mí.
+
+        <br><br>
+
+        Si pudiera guardar un momento
+        para volver a vivirlo,
+        elegiría uno en el que estés tú.
+
+        <br><br>
+
+        Gracias por los recuerdos,
+        por las sonrisas y por formar
+        parte de mi historia.
+
+        <br><br>
+
+        Esta pequeña página es solo
+        un pedacito de todo lo que
+        quiero compartir contigo.
+
+        <div class="signature">
+          Con mucho cariño, para ti. ♡
+        </div>
+      </div>
+
+      <p class="heart">♡</p>
+    </section>
+
+  </main>
+
+  <script>
+    const fechaSecreta = "200926";
+    let enteredDate = "";
+
+    function updateDisplay() {
+      document.getElementById("display").textContent =
+        enteredDate.padEnd(6, "_");
+    }
+
+    function addNumber(number) {
+      if (enteredDate.length < 6) {
+        enteredDate += number;
+        updateDisplay();
+      }
+      document.getElementById("error").textContent = "";
+    }
+
+    function clearDate() {
+      enteredDate = "";
+      updateDisplay();
+      document.getElementById("error").textContent = "";
+    }
+
+    function deleteNumber() {
+      enteredDate = enteredDate.slice(0, -1);
+      updateDisplay();
+      document.getElementById("error").textContent = "";
+    }
+
+    function checkDate() {
+      if (enteredDate === fechaSecreta) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("surprise").style.display = "block";
+      } else {
+        document.getElementById("error").textContent =
+          "Fecha incorrecta... intenta otra vez ♡";
+        enteredDate = "";
+        updateDisplay();
+      }
+    }
+  </script>
+</body>
+</html>
